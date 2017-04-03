@@ -5,9 +5,14 @@ Data Transformation/Tracking Framework
 in => [dt] => out
 
 in = a sequence of Tables
+
 out = a sequence of Tables
 
-Table = 2-dimensional data - either supplied directly (e.g. csv), or indirectly via structured (e.g. file, SQL query) or unstructured (HTML table from a webpage) sources
+Table = 2-dimensional data - 
+
+        either supplied directly (e.g. csv), or 
+        
+        indirectly via structured (e.g. file, SQL query) or unstructured (HTML table from a webpage) sources
 
 Table may be specified as  a header + sequence of Rows, or Columns
 
