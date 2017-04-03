@@ -30,8 +30,11 @@ in =  [ { file => 'name' or content => 'string' or CODEREF, format => csv/tsv/ps
 out = [ { file => 'name', format => ... } ]
 
 [dt] has value added features:
+
         provides services (e.g. join, merge, pivot, group, average etc) to manipulate in-stream, to generate out-stream.
+     
         services can be grouped to form "transoformations", which can be composed.
+        
         result streams can be persisted into a DB and revision controlled (e.g. one can see how a table of data evolved over time)
         
         
@@ -50,23 +53,31 @@ Wow...that seems like a valuable weapon that saves tons of cycles, at least in m
 Reviewed the version 0.01 of the tool. The tool was built using easydatabase (https://sites.google.com/site/easydatabase/) and sqlite3, using Perl's ability glue diverse data sources together.
 
 [snip]
+
 $ dt infile=test.csv [outformat=psv]
-              Formats input to unform width 'psv' (pipe seperated values)
+        
+        Formats input to unform width 'psv' (pipe seperated values)
               
 $ cat test.csv | dt
-              Takes input from a pipe
+        
+        Takes input from a pipe
               
 $ dt infile=test.csv infile=test1.csv command='$dt->[0]=$dt->[0]->join($dt->[1], 0, ["Name"], ["Name"], {renameCol => 1})' outformat=xls outfile=t.xls
+               
                Composes tables and stores results
                
 $ cat t.csv | dt informat=csv command='dt2db($dt->[0], undef, "t.db", "t")'
-                Creates persistent DB tables from in-memory Data::Table objects
+               
+               Creates persistent DB tables from in-memory Data::Table objects
                 
 $ sqlite3 -header t.db "select * from t"
-                DB and SQL access
+               
+               DB and SQL access
                 
 $ cat t.csv | dt informat=csv command='dt2db($dt->[0], undef, "t.db", "t")'
-                 When data changes, only changed rows are updated giving a time history of data
+               
+               When data changes, only changed rows are updated giving a time history of data
+
 [/snip]
 
 Question: Is there a tool out there that solves this class of problems? If so, we can learn and adopt; else we can refine and release the tool.
